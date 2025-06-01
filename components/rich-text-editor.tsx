@@ -421,7 +421,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
             <DialogTrigger asChild>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button type="button" variant="ghost" size="sm">
+                  <Button type="button" variant="ghost" size="sm" onClick={()=>setHtmlDialogOpen(true)}>
                     <FileText className="h-4 w-4" />
                   </Button>
                 </TooltipTrigger>
@@ -430,7 +430,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
                 </TooltipContent>
               </Tooltip>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[80vh]">
+            <DialogContent className="max-w-4xl max-h-[100vh]">
               <DialogHeader>
                 <DialogTitle>Paste HTML Content</DialogTitle>
                 <DialogDescription>
