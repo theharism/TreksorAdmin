@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 
-const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api/v1' : 'http://31.97.13.169:8080/api/v1';
+const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api/v1' : 'https://app.treksor.com/api/v1';
 
 export async function POST(request: NextRequest) {
   try {
