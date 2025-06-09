@@ -1,6 +1,6 @@
 "use client"
 
-import { Home, FileText, LogOut } from "lucide-react"
+import { Home, FileText, LogOut, Lightbulb } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 import {
@@ -27,6 +27,11 @@ const items = [
     title: "Articles",
     url: "/dashboard/articles",
     icon: FileText,
+  },
+  {
+    title: "Power Thoughts",
+    url: "/dashboard/power-thoughts",
+    icon: Lightbulb,
   },
 ]
 
