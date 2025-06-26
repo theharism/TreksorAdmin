@@ -13,6 +13,7 @@ import { ArrowLeft, AlertTriangle, Lightbulb } from "lucide-react"
 
 export default function CreatePowerThoughtPage() {
   const [thought, setThought] = useState("")
+  const [date, setDate] = useState('');
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const { toast } = useToast()
@@ -29,7 +30,7 @@ export default function CreatePowerThoughtPage() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ thought }),
+        body: JSON.stringify({ thought, date: new Date(date).toISOString().split('T')[0] }),
       })
 
       if (response.ok) {
@@ -99,6 +100,19 @@ export default function CreatePowerThoughtPage() {
                 <p className="text-xs text-muted-foreground text-right">
                   {thought.length} characters ({250 - thought.length} remaining)
                 </p>
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="date" className="block text-sm font-medium text-muted-foreground">
+                  Select Date
+                </label>
+                <input
+                  type="date"
+                  id="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  className="block w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+                  required
+                />
               </div>
             </div>
           </CardContent>

@@ -20,6 +20,7 @@ export default function CreateArticlePage() {
   const [category, setCategory] = useState("")
   const [body, setBody] = useState("")
   const [image, setImage] = useState<File | null>(null)
+  const [date, setDate] = useState<string>();
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const { toast } = useToast()
@@ -41,6 +42,11 @@ export default function CreateArticlePage() {
       formData.append("title", title)
       formData.append("description", description)
       formData.append("category", category)
+      if (date) {
+        formData.append("date", new Date(date).toISOString().split('T')[0])
+      } else {
+        throw new Error("Date is required")
+      }
       formData.append("body", body)
       if (image) {
         formData.append("image", image)
@@ -140,6 +146,20 @@ export default function CreateArticlePage() {
             <div className="space-y-2">
               <Label htmlFor="image">Image</Label>
               <Input id="image" type="file" accept="image/*" onChange={handleImageChange} required />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="date" className="block text-sm font-medium text-muted-foreground">
+                Select Date
+              </label>
+              <input
+                type="date"
+                id="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="block w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+                required
+              />
             </div>
 
             <div className="space-y-2">
