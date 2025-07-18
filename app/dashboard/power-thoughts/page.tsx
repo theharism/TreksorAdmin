@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
-import { Lightbulb, Plus, Loader2 } from "lucide-react"
+import { Lightbulb, Plus, Loader2, Trash2 } from "lucide-react"
 import { format } from "date-fns"
 
 interface PowerThought {
@@ -62,6 +62,40 @@ export default function PowerThoughtsPage() {
     }
   }
 
+  const handleDeleteThought = async (_id: any) => {
+    if (!confirm("Are you sure you want to delete this Power Thought?")) return
+
+    try {
+      const token = localStorage.getItem("token")
+      const response = await fetch(`/api/power-thoughts/${_id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      if (response.ok) {
+        toast({
+          title: "Success",
+          description: "Power Thought deleted successfully",
+        })
+        fetchPowerThoughts()
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to delete power thought",
+          variant: "destructive",
+        })
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        variant: "destructive",
+      })
+    }
+  }
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -91,6 +125,9 @@ export default function PowerThoughtsPage() {
               <div className="flex items-center">
                 <Lightbulb className="h-4 w-4 mr-2 text-primary" />
                 <span className="text-xs text-muted-foreground">{formatDate(thought.date)}</span>
+                <Button variant="ghost" size="sm" onClick={() => handleDeleteThought(thought._id)}>
+                    <Trash2 className="h-4 w-4" />
+                </Button>
               </div>
             </CardHeader>
             <CardContent className="pt-4">
